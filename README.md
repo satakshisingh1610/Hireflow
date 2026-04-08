@@ -1,29 +1,38 @@
-# HireFlow — Full Stack Job Portal
+# HireFlow — Full Stack Job Portal 🚀
 
-A production-ready MERN stack job portal with role-based auth, job posting, applications with resume upload, saved jobs, and dashboards for both seekers and recruiters.
-
----
-
-## Tech Stack
-
-| Layer     | Technology                                        |
-|-----------|---------------------------------------------------|
-| Frontend  | React 18, Vite, Tailwind CSS, Axios               |
-| Backend   | Node.js, Express.js                               |
-| Database  | MongoDB (Mongoose ODM)                            |
-| Auth      | JWT (access + refresh tokens, httpOnly cookies)   |
-| Upload    | Multer (local disk storage)                       |
-| Deploy    | Vercel (frontend) · Render (backend) · Atlas (DB) |
+A production-ready MERN stack job portal with role-based authentication, job posting, applications with resume upload, saved jobs, and dashboards for both job seekers and recruiters.
 
 ---
 
-## Quick Start (Local)
+## 🌐 Live Demo
 
-### 1. Clone / unzip the project
+* 🔗 **Frontend (Vercel):** https://hireflow-d9vl.vercel.app
+* 🔗 **Backend API (Render):** https://hireflow-lyxe.onrender.com
+
+---
+
+## 🛠️ Tech Stack
+
+| Layer    | Technology                                        |
+| -------- | ------------------------------------------------- |
+| Frontend | React 18, Vite, Tailwind CSS, Axios               |
+| Backend  | Node.js, Express.js                               |
+| Database | MongoDB (Mongoose ODM)                            |
+| Auth     | JWT (access + refresh tokens, httpOnly cookies)   |
+| Upload   | Multer (local disk storage)                       |
+| Deploy   | Vercel (frontend) · Render (backend) · Atlas (DB) |
+
+---
+
+## ⚡ Quick Start (Local)
+
+### 1. Clone the project
 
 ```bash
 cd hireflow
 ```
+
+---
 
 ### 2. Backend setup
 
@@ -31,23 +40,24 @@ cd hireflow
 cd backend
 npm install
 cp .env.example .env
-# Fill in .env with your MongoDB URI and JWT secrets (see below)
 npm run dev
-# → Running on http://localhost:5000
+# → http://localhost:5000
 ```
 
-### 3. Frontend setup (new terminal)
+---
+
+### 3. Frontend setup
 
 ```bash
 cd frontend
 npm install
 npm run dev
-# → Running on http://localhost:5173
+# → http://localhost:5173
 ```
 
 ---
 
-## Environment Variables
+## 🔐 Environment Variables
 
 ### Backend (`backend/.env`)
 
@@ -57,93 +67,131 @@ MONGODB_URI=mongodb+srv://<user>:<pass>@cluster.mongodb.net/hireflow
 NODE_ENV=development
 CLIENT_URL=http://localhost:5173
 
-# Generate: node -e "console.log(require('crypto').randomBytes(64).toString('hex'))"
 ACCESS_TOKEN_SECRET=<64-char-hex>
-REFRESH_TOKEN_SECRET=<different-64-char-hex>
+REFRESH_TOKEN_SECRET=<64-char-hex>
 ACCESS_TOKEN_EXPIRY=15m
 REFRESH_TOKEN_EXPIRY=7d
 ```
 
-### Frontend (`frontend/.env`) — production only
+---
+
+### Frontend (`frontend/.env`)
 
 ```env
-VITE_API_URL=https://your-backend.onrender.com/api
+VITE_API_URL=https://hireflow-lyxe.onrender.com/api
 ```
-
-> In development, Vite's proxy handles `/api` → `localhost:5000` automatically. No `.env` needed locally.
 
 ---
 
-## API Endpoints
+## 📡 API Endpoints
 
 ### Auth — `/api/auth`
-| Method | Path       | Auth    | Description                    |
-|--------|------------|---------|--------------------------------|
-| POST   | /signup    | —       | Register (seeker or recruiter) |
-| POST   | /login     | —       | Login, returns access token    |
-| POST   | /refresh   | cookie  | Rotate token pair              |
-| POST   | /logout    | cookie  | Invalidate session             |
-| GET    | /me        | Bearer  | Get current user               |
+
+| Method | Endpoint | Description      |
+| ------ | -------- | ---------------- |
+| POST   | /signup  | Register user    |
+| POST   | /login   | Login user       |
+| POST   | /refresh | Refresh token    |
+| POST   | /logout  | Logout user      |
+| GET    | /me      | Get current user |
+
+---
 
 ### Jobs — `/api/jobs`
-| Method | Path  | Auth      | Description           |
-|--------|-------|-----------|-----------------------|
-| GET    | /     | —         | List / search / filter |
-| GET    | /my   | Recruiter | Own posted jobs       |
-| GET    | /:id  | —         | Job detail            |
-| POST   | /     | Recruiter | Create job            |
-| PUT    | /:id  | Recruiter | Update own job        |
-| DELETE | /:id  | Recruiter | Delete own job        |
+
+| Method | Endpoint | Description    |
+| ------ | -------- | -------------- |
+| GET    | /        | Get all jobs   |
+| GET    | /my      | Recruiter jobs |
+| POST   | /        | Create job     |
+| PUT    | /:id     | Update job     |
+| DELETE | /:id     | Delete job     |
+
+---
 
 ### Applications — `/api/applications`
-| Method | Path              | Auth      | Description              |
-|--------|-------------------|-----------|--------------------------|
-| POST   | /apply            | Seeker    | Apply (multipart/form-data) |
-| GET    | /my               | Seeker    | My applications          |
-| GET    | /job/:jobId       | Recruiter | Applicants for a job     |
-| PATCH  | /:id/status       | Recruiter | Update applicant status  |
+
+| Method | Endpoint    | Description            |
+| ------ | ----------- | ---------------------- |
+| POST   | /apply      | Apply to job           |
+| GET    | /my         | My applications        |
+| GET    | /job/:jobId | Applicants (recruiter) |
+
+---
 
 ### Users — `/api/users`
-| Method | Path              | Auth    | Description           |
-|--------|-------------------|---------|-----------------------|
-| GET    | /profile          | Any     | Get profile           |
-| PUT    | /profile          | Any     | Update profile        |
-| POST   | /upload-resume    | Seeker  | Upload resume file    |
-| POST   | /save-job/:jobId  | Seeker  | Toggle save/unsave    |
-| GET    | /saved-jobs       | Seeker  | Get saved jobs        |
+
+| Method | Endpoint         | Description    |
+| ------ | ---------------- | -------------- |
+| GET    | /profile         | Get profile    |
+| PUT    | /profile         | Update profile |
+| POST   | /upload-resume   | Upload resume  |
+| POST   | /save-job/:jobId | Save job       |
+| GET    | /saved-jobs      | Saved jobs     |
 
 ---
 
-## Deployment
+## ☁️ Deployment
 
-### MongoDB Atlas
-1. Create cluster at https://cloud.mongodb.com
-2. Network Access → Add `0.0.0.0/0`
-3. Copy connection string → set as `MONGODB_URI` in Render
+### 🔹 MongoDB Atlas
 
-### Backend → Render
-1. Push to GitHub
-2. Render → New Web Service → connect repo
-3. Root dir: `backend` · Build: `npm install` · Start: `npm start`
-4. Set all env vars from `backend/.env.example`
-5. Your API: `https://hireflow-api.onrender.com`
-
-### Frontend → Vercel
-1. Vercel → New Project → import repo
-2. Root dir: `frontend` · Framework: Vite
-3. Env var: `VITE_API_URL=https://hireflow-api.onrender.com/api`
-4. Deploy
-
-### Wire CORS
-In Render, set `CLIENT_URL=https://your-app.vercel.app`, then redeploy backend.
+* Create cluster
+* Allow `0.0.0.0/0` access
+* Use connection string in backend
 
 ---
 
-## Zip the project
+### 🔹 Backend → Render
 
-```bash
-zip -r hireflow.zip hireflow/ \
-  --exclude "*/node_modules/*" \
-  --exclude "*/.env" \
-  --exclude "*/uploads/resumes/*"
+* Root: `backend`
+* Build: `npm install`
+* Start: `npm start`
+* Add environment variables
+
+---
+
+### 🔹 Frontend → Vercel
+
+* Root: `frontend`
+* Framework: Vite
+* Add env:
+
+```env
+VITE_API_URL=https://hireflow-lyxe.onrender.com/api
 ```
+
+---
+
+## 🔗 System Architecture
+
+```
+Frontend (Vercel)
+   ↓
+Backend API (Render)
+   ↓
+MongoDB Atlas
+```
+
+---
+
+## 💼 Features
+
+* 🔐 Secure JWT Authentication
+* 👤 Role-based access (Seeker / Recruiter)
+* 📄 Resume upload & job applications
+* 🔎 Job search & filtering
+* ⭐ Saved jobs
+* 📊 Dashboard for users
+
+---
+
+## 🧠 Author
+
+**Satakshi Singh**
+Full Stack Developer
+
+---
+
+## ⭐ If you like this project
+
+Give it a ⭐ on GitHub!
