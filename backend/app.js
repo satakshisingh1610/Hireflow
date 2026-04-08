@@ -23,23 +23,31 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
+// ── ROOT ROUTE (FIX FOR RENDER) ──────────────────────────────────────────────
+app.get('/', (_req, res) => {
+  res.json({
+    message: "HireFlow API is running 🚀",
+    status: "success"
+  });
+});
+
 // ── Routes ────────────────────────────────────────────────────────────────────
 app.use('/api/auth',         authRoutes);
 app.use('/api/jobs',         jobRoutes);
 app.use('/api/applications', applicationRoutes);
 app.use('/api/users',        userRoutes);
 
-// ── Health ────────────────────────────────────────────────────────────────────
+// ── Health Check ─────────────────────────────────────────────────────────────
 app.get('/api/health', (_req, res) =>
   res.json({ status: 'ok', time: new Date().toISOString() })
 );
 
-// ── 404 ───────────────────────────────────────────────────────────────────────
+// ── 404 Handler ──────────────────────────────────────────────────────────────
 app.use((_req, res) =>
   res.status(404).json({ success: false, message: 'Route not found' })
 );
 
-// ── Global error handler ──────────────────────────────────────────────────────
+// ── Global Error Handler ─────────────────────────────────────────────────────
 app.use(errorHandler);
 
 export default app;
