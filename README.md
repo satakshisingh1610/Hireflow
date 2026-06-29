@@ -6,7 +6,7 @@ A production-ready MERN stack job portal with role-based authentication, job pos
 
 ## 🌐 Live Demo
 
-* 🔗 **Frontend (Vercel):** https://hireflow-d9vl.vercel.app
+* 🔗 **Frontend (Vercel):** https://hireflow-nfky.vercel.app
 * 🔗 **Backend API (Render):** https://hireflow-lyxe.onrender.com
 
 ---
